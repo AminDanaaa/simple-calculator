@@ -1,0 +1,37 @@
+body {
+    background-color: #121212;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 98vh;
+}
+
+.container {
+    border: 1px solid #363636;
+    border-radius: 10px;
+    width: 25%;
+    height: 70vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    min-width: 400px;
+    min-height: 600px;
+    background-color: #1f1f1f;
+    padding-bottom: 10px;
+}
+
+.display {
+    border: 1px solid #343434;
+    border-radius: 6px;
+    background-color: rgb(91, 91, 91);
+    width: 90%;
+    height: 10%;
+    margin-top: 20px;
+}
+
+.inputs {
+    border: 1px solid blue;
+    width: 90%;
+    height: 75%;
+}

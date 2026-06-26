@@ -1,6 +1,8 @@
 // get the references from DOM
 const container = document.querySelector(".container");
 
+
+
 // create new elements and store references
 const display = document.createElement("div");
 const inputs = document.createElement("div");
@@ -10,6 +12,8 @@ const numbersDiv = document.createElement("div");
 const operatorsDiv = document.createElement("div");
 const textEquation = document.createElement("p");
 const textResult = document.createElement("p");
+
+
 
 // assign css classes to elements
 display.classList.add("display");
@@ -21,6 +25,8 @@ textResult.classList.add("textResult");
 numbersDiv.classList.add("numbersDiv");
 operatorsDiv.classList.add("operatorsDiv");
 
+
+
 // assign children to parents and struct the page
 container.appendChild(display);
 container.appendChild(inputs);
@@ -31,6 +37,27 @@ displayResult.appendChild(textResult);
 inputs.appendChild(numbersDiv);
 inputs.appendChild(operatorsDiv);
 
+
+
+// math functions
+function add(firstNumber, secondNumber) {
+    return firstNumber + secondNumber;
+}
+
+function sub(firstNumber, secondNumber) {
+    return firstNumber - secondNumber;
+}
+
+function multiply(firstNumber, secondNumber) {
+    return firstNumber * secondNumber;
+}
+
+function division(firstNumber, secondNumber) {
+    return firstNumber / secondNumber;
+}
+
+
+
 // Main.js:
 const operatorSymbols = ["+", "-", "x", "÷"];
 const numberSymbols = ["9", "8", "7", "6", "5", "4", "3", "2", "1", "0", "C", "="];
@@ -39,6 +66,7 @@ let textResultVariable = "Waiting..."
 let firstClick = true;
 let haveNumber = false;
 let haveOperator = false;
+let haveNumberAfterOperator = false;
 
 for (symbol in numberSymbols) {
     thisButton = document.createElement("button");
@@ -50,19 +78,24 @@ for (symbol in numberSymbols) {
     numbersDiv.appendChild(thisButton);
 
     thisButton.addEventListener("click", e => {
-        if (firstClick) {
-            clearEquation();
-            firstClick = false;
-        }
         if (e.target.textContent === "C") {
             textEquationVariable = "Enter an Equation";
             textResultVariable = "Waiting..."
             updateDisplay();
             firstClick = true;
+            operateReadyReset();
         } else if (e.target.textContent === "=") {
-            operate();
-            console.log("operate");
+            if (operateReady()) {
+                operate();
+            }
         } else {
+            if (firstClick) {
+                clearEquation();
+                firstClick = false;
+            }
+            if (haveOperator) {
+                haveNumberAfterOperator = true;
+            }
             textEquationVariable += e.target.textContent;
             haveNumber = true;
             updateDisplay();
@@ -88,6 +121,20 @@ for (symbol in operatorSymbols) {
 function operate() {
 }
 
+function operateReady() {
+    if (haveNumber && haveNumberAfterOperator && haveOperator) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function operateReadyReset() {
+    haveOperator = false;
+    haveNumber = false;
+    haveNumberAfterOperator = false;
+}
+
 function updateDisplay() {
     textEquation.textContent = textEquationVariable;
     textResult.textContent = textResultVariable;
@@ -95,7 +142,7 @@ function updateDisplay() {
 
 function clearEquation() {
     textEquationVariable = "";
-    haveOperator = false;
+    operateReadyReset();
     updateDisplay();
 }
 
@@ -104,4 +151,7 @@ function clearResult() {
     updateDisplay();
 }
 
+
+
+// initialize
 updateDisplay();

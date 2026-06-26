@@ -24,6 +24,16 @@ body {
     height: 98vh;
 }
 
+a,
+a:link,
+a:visited,
+a:hover,
+a:active,
+a:focus {
+    color: orange;
+    text-decoration: none;
+}
+
 body p {
     color: rgba(255, 255, 255, 0.5);
 }
@@ -121,6 +131,7 @@ button {
     font-size: 20px;
     margin: 5px;
     user-select: none;
+    cursor: pointer;
 }
 
 button:hover {
@@ -134,4 +145,8 @@ button:hover {
 
 .resultingButtons:hover {
     opacity: 0.6;
+}
+
+.noSelect {
+    user-select: none;
 }

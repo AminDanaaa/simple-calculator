@@ -80,6 +80,7 @@ for (symbol in numberSymbols) {
 
     thisButton.addEventListener("click", e => {
         if (e.target.textContent === "C") {
+            addDisplayNoSelect();
             resetDisplay();
             updateDisplay();
         } else if (e.target.textContent === "=") {
@@ -89,6 +90,7 @@ for (symbol in numberSymbols) {
         } else {
             if (firstClick) {
                 clearEquation();
+                removeDisplayNoSelect();
                 firstClick = false;
             }
             if (haveOperator) {
@@ -183,11 +185,22 @@ function clearEquation() {
 function resetDisplay() {
     textEquationVariable = "Enter an Equation";
     textResultVariable = "Waiting..."
+    addDisplayNoSelect();
     firstClick = true;
     operateReadyReset();
 }
 
+function removeDisplayNoSelect() {
+    textEquation.classList.remove("noSelect");
+    textResult.classList.remove("noSelect");
+}
+
+function addDisplayNoSelect() {
+    textEquation.classList.add("noSelect");
+    textResult.classList.add("noSelect");
+}
 
 
 // initialize
+addDisplayNoSelect();
 updateDisplay();

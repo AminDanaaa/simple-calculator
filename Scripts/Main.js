@@ -67,6 +67,7 @@ let firstClick = true;
 let haveNumber = false;
 let haveOperator = false;
 let haveNumberAfterOperator = false;
+let operator = "";
 
 for (symbol in numberSymbols) {
     thisButton = document.createElement("button");
@@ -79,11 +80,8 @@ for (symbol in numberSymbols) {
 
     thisButton.addEventListener("click", e => {
         if (e.target.textContent === "C") {
-            textEquationVariable = "Enter an Equation";
-            textResultVariable = "Waiting..."
+            resetDisplay();
             updateDisplay();
-            firstClick = true;
-            operateReadyReset();
         } else if (e.target.textContent === "=") {
             if (operateReady()) {
                 operate();
@@ -98,6 +96,9 @@ for (symbol in numberSymbols) {
             }
             textEquationVariable += e.target.textContent;
             haveNumber = true;
+            if (Number(textEquationVariable) <= 0) {
+                resetDisplay();
+            }
             updateDisplay();
         }
     });
@@ -112,6 +113,7 @@ for (symbol in operatorSymbols) {
     thisButton.addEventListener("click", e => {
         if (haveNumber && !haveOperator) {
             textEquationVariable += e.target.textContent;
+            operator = e.target.textContent;
             haveOperator = true;
             updateDisplay();
         }
@@ -119,6 +121,37 @@ for (symbol in operatorSymbols) {
 }
 
 function operate() {
+    let numbers = textEquationVariable.split(operator);
+    for (number in numbers) {
+        numbers[number] = Number(numbers[number]);
+    }
+    const [firstNumber, secondNumber] = numbers;
+    let result;
+    switch(operator) {
+        case "+":
+            result = add(firstNumber, secondNumber);
+            break;
+        case "-":
+            result = sub(firstNumber, secondNumber);
+            break;
+        case "x":
+            result = multiply(firstNumber, secondNumber);
+            break;
+        case "÷":
+            if (secondNumber === 0) {
+                console.log("Can't divide numbers by zero!");
+                result = "Check Console."
+            } else {
+                result = division(firstNumber, secondNumber);
+            }
+            break;
+        default:
+            console.log("Something went wrong!");
+            break;
+    }
+    textResultVariable = String(result);
+    updateDisplay();
+    resetDisplay();
 }
 
 function operateReady() {
@@ -133,6 +166,7 @@ function operateReadyReset() {
     haveOperator = false;
     haveNumber = false;
     haveNumberAfterOperator = false;
+    operator = "";
 }
 
 function updateDisplay() {
@@ -146,9 +180,11 @@ function clearEquation() {
     updateDisplay();
 }
 
-function clearResult() {
-    textResultVariable = "";
-    updateDisplay();
+function resetDisplay() {
+    textEquationVariable = "Enter an Equation";
+    textResultVariable = "Waiting..."
+    firstClick = true;
+    operateReadyReset();
 }
 
 

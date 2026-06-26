@@ -1,3 +1,20 @@
+/**
+ * Google Fonts API
+ * ----------------
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Victor+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+
+/**
+ * Universal reset
+ * ---------------
+ */
+
+html {
+    font: normal 1em/1.75 'Victor Mono', Menlo, Monaco, Courier, 'Courier New', monospace;
+    letter-spacing: 0.03rem;
+} 
+
 body {
     background-color: #121212;
     display: flex;
@@ -35,9 +52,10 @@ body {
 }
 
 .inputs {
-    border: 1px solid blue;
     width: 90%;
     height: 75%;
+    display: flex;
+    flex-direction: row;
 }
 
 .equation {
@@ -59,9 +77,47 @@ body {
 .textEquation {
     color: rgba(255, 255, 255, 0.65);
     font-size: 18px;
+    flex: 1;
+    max-width: 100%;
 }
 
 .textResult {
     color: white;
     font-size: 32px;
+    flex: 2;
+    max-width: 100%;
+}
+
+.numbersDiv {
+    flex: 3;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.operatorsDiv {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.operator {
+    flex: 1;
+    background-color: orange;
+}
+
+.number {
+    flex: 1;
+    background-color: grey;
+    color: black;
+    flex: 0 0 29%;
+}
+
+button {
+    font-size: 20px;
+    margin: 5px;
+}
+
+.resultingButtons {
+    background-color: #424242;
+    color: white;
 }
